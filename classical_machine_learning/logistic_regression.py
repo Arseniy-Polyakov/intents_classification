@@ -14,7 +14,7 @@ def logistic_regression(train_texts: list, train_labels: list) -> list:
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
     accuracy = round(accuracy_score(y_pred, y_test), 2)
-    precision = round(precision_score(y_pred, y_test, average="macro"), 2)
+    precision = round(precision_score(y_pred, y_test, average="macro", zero_division=0), 2)
     recall = round(recall_score(y_pred, y_test, average="macro", zero_division=0), 2)
     f1 = round(f1_score(y_pred, y_test, average="macro"), 2)
     scores = {
