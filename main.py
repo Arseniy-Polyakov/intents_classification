@@ -1,9 +1,11 @@
 import re
-from tqdm import tqdm 
 
 import pandas as pd
 import numpy as np
 import json_repair
+import matplotlib.pyplot as plt
+import seaborn as sns
+from tqdm import tqdm 
 from pymorphy3 import MorphAnalyzer
 from nltk.corpus import stopwords
 
@@ -168,3 +170,22 @@ def overall_stat(file_name: str) -> tuple:
             frequency_classificator[method] = 0
     frequency_classificator = dict(sorted(frequency_classificator.items(), key = lambda x:x[1], reverse=True))
     return intents_sentences_gini, best_classificator_index, frequency_classificator
+
+def graphics(data: list):
+    """
+    Making box-plot graphics for the number of intents, sentences and gini range in the dataset
+    """
+    intents = np.array([item[0] for item in data])
+    sentences = [item[1] for item in data]
+    gini = [item[2] for item in data]
+    sns.boxplot(intents)
+    plt.title("Распределение по количеству интентов")
+    plt.show()
+    sns.boxplot(sentences)
+    plt.title("Распределение по количеству предложений")
+    plt.show()
+    sns.boxplot(gini)
+    plt.title("Распределение по gini индексу")
+    plt.show()
+
+graphics(overall_stat("tests.csv")[0])

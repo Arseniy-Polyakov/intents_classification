@@ -7,7 +7,7 @@ def logistic_regression(train_texts: list, train_labels: list) -> list:
     """
     The logistic regression function for text classification
     """
-    model = LogisticRegression()
+    model = LogisticRegression(multi_class="multinomial")
     vectorizer = TfidfVectorizer()
     vector_texts = vectorizer.fit_transform(train_texts)
     X_train, X_test, y_train, y_test = train_test_split(vector_texts, train_labels, test_size=0.2, random_state=42)
